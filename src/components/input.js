@@ -18,7 +18,8 @@ const useStyles = makeStyles(theme => ({
   },
   form: {
     width: "100%",
-    padding: "10px 0"
+    padding: "10px 0",
+    marginBlockEnd: "0"
   },
   input: {
     maxHeight: "150px",

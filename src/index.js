@@ -2,11 +2,15 @@ import React from "react";
 import ReactDOM from "react-dom";
 import Thread from "./containers/Thread";
 import "./index.css";
+import App from './App';
+import * as serviceWorker from './serviceWorker';
+import { CssBaseline } from "@material-ui/core";
 
 ReactDOM.render(
-  <>
-    <Thread responses person />
-  </>,
+  <React.StrictMode>
+    <CssBaseline />
+    <Thread />
+  </React.StrictMode>,
   document.querySelector("#root")
 );
 
