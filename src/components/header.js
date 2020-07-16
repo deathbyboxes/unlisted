@@ -9,6 +9,7 @@ import {
 import IconButton from "@material-ui/core/IconButton";
 import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core";
+import DialogBox from "./dialogBox";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,10 +22,20 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Header({ contact, action }) {
+function Header({ contact, textCopy }) {
   const classes = useStyles();
+  const [secOpen, setSecOpen] = React.useState(false)
+
+  function handleOpen() {
+    setSecOpen(true)
+  }
+
+  function handleClose () {
+    setSecOpen(false);
+  };
 
   return (
+    <>
     <AppBar className={classes.root}>
       <Toolbar>
         <IconButton edge="start" color="inherit">
@@ -34,11 +45,13 @@ function Header({ contact, action }) {
         <Typography variant="h6" className={classes.title}>
           {contact}
         </Typography>
-        <IconButton onClick={action} edge="end" color="inherit">
+        <IconButton onClick={handleOpen} edge="end" color="inherit">
           <IoMdInformationCircleOutline />
         </IconButton>
       </Toolbar>
     </AppBar>
+    <DialogBox open={secOpen} textCopy={textCopy} action={handleClose} />
+    </>
   );
 }
 

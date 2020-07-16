@@ -6,6 +6,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Grow from "@material-ui/core/Grow";
 import { RandomNumber } from "../utils/utils";
+import classNames from 'classnames'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,10 +41,10 @@ function Message(props) {
   const from = props.from;
   let time = RandomNumber(3, 4) * 1000;
 
-  const classNames = {
+  const paperClases = classNames({
     [classes.paper]: true,
     [classes.me]: from === "Me"
-  };
+  });
 
   return (
     <React.Fragment>
@@ -54,7 +55,7 @@ function Message(props) {
           p={1}
         >
           <Box className={classes.messageBox}>
-            <Paper className={classNames}>
+            <Paper className={paperClases}>
               <div className={classes.date}>
                 <Typography variant="caption" className={classes.date}>
                   {props.date}

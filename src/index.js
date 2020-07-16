@@ -7,10 +7,10 @@ import * as serviceWorker from './serviceWorker';
 import { CssBaseline } from "@material-ui/core";
 
 ReactDOM.render(
-  <React.StrictMode>
+  <>
     <CssBaseline />
     <Thread />
-  </React.StrictMode>,
+  </>,
   document.querySelector("#root")
 );
 

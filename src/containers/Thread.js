@@ -3,11 +3,17 @@ import Message from "../components/message";
 import Header from "../components/header.js";
 import Input from "../components/input";
 import { RealTime, RandomNumber } from "../utils/utils";
+import DialogBox from "../components/dialogBox";
 
 const responses = [
   {
     possibleWords: ["hey", "yo", "sup", "hello"],
     response: "Whatya want!? I'm busy watchin my General Hospitals!",
+    optional: true
+  },
+  {
+    possibleWords: ["sorry", "apolog", "bad"],
+    response: "Oh boo hoo, get to the point!",
     optional: true
   },
   {
@@ -29,18 +35,23 @@ const responses = [
   },
   {
     possibleWords: [""],
-    response: "Who would win in a fight, a taco or a grilled cheese sandwich?",
+    response: "Now listen up... who would win in a fight, a taco or a grilled cheese sandwich?",
     optional: false
   },
   {
     possibleWords: [""],
-    response: "Try again, scum bag",
+    response: "Well, when you have an actual answer, I'll be here.",
     optional: true
   },
   {
     possibleWords: ["taco", "grilled cheese"],
-    response: "Good. Answer. Tony was hangin out at Frolic's last I saws",
+    response: "Ayyy, good answer! Tony was hangin out at that Frolics joint last I saws",
     optional: false
+  },
+  {
+    possibleWords: ["where", "location"],
+    response: "On the corner of 10th and Sawyer",
+    optional: true
   },
   {
     possibleWords: ["thank", "later", "bye"],
@@ -57,6 +68,8 @@ const person = {
 function Thread() {
   const [messages, setMessages] = React.useState([]);
   const [messageQueue, setMessageQueue] = React.useState([]);
+  const [textCopy, setTextCopy] = React.useState("")
+  
 
   React.useEffect(() => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
@@ -83,9 +96,10 @@ function Thread() {
       }
   }, [messages, messageQueue]);
 
-  function getMessages() {
-    console.log(JSON.stringify(messages));
-  }
+  React.useEffect(() => {
+    if(messages.length)
+    setTextCopy(JSON.stringify(messages))
+  }, [messages])
 
   function checkResponse(msg) {
     let i, tmpI, res;
@@ -117,7 +131,7 @@ function Thread() {
 
   return (
     <div>
-      <Header action={getMessages} contact={person.name || person.phone} />
+      <Header contact={person.name || person.phone} textCopy={textCopy} />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
       <div style={{ height: "75px" }}>&nbsp;</div>
