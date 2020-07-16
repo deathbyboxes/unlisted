@@ -25,32 +25,39 @@ const useStyles = makeStyles(theme => ({
 function Header({ contact, textCopy }) {
   const classes = useStyles();
   const [secOpen, setSecOpen] = React.useState(false)
+  const [open, setOpen] = React.useState(true);
 
-  function handleOpen() {
-    setSecOpen(true)
+  function handleOpen(btn) {
+    if(btn==="convo")
+      setSecOpen(true)
+    else
+      setOpen(true)
   }
 
-  function handleClose () {
-    setSecOpen(false);
+  function handleClose (btn) {
+    if(btn==="convo")
+      setSecOpen(false)
+    else
+      setOpen(false)
   };
 
   return (
     <>
     <AppBar className={classes.root}>
       <Toolbar>
-        <IconButton edge="start" color="inherit">
+        <IconButton onClick={() => {handleOpen("convo")}} edge="start" color="inherit">
           <IoMdArrowRoundBack />
         </IconButton>
         <Divider orientation="vertical" flexItem light />
         <Typography variant="h6" className={classes.title}>
           {contact}
         </Typography>
-        <IconButton onClick={handleOpen} edge="end" color="inherit">
+        <IconButton onClick={() => {handleOpen()}} edge="end" color="inherit">
           <IoMdInformationCircleOutline />
         </IconButton>
       </Toolbar>
     </AppBar>
-    <DialogBox open={secOpen} textCopy={textCopy} action={handleClose} />
+    <DialogBox secOpen={secOpen} open={open} textCopy={textCopy} action={handleClose} />
     </>
   );
 }

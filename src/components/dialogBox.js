@@ -6,15 +6,12 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField";
-import { IoMdInformationCircleOutline } from "react-icons/io";
+import { IoMdInformationCircleOutline, IoMdArrowRoundBack } from "react-icons/io";
 
 function DialogBox(props) {
-  const [open, setOpen] = React.useState(true);
   const [status, setStatus] = React.useState('');
   const textAreaRef = React.useRef(null);
-  const handleClose = () => {
-    setOpen(false);
-  };
+
   function handleSubmit (e) {
     console.log("submitting")
     e.preventDefault();
@@ -38,8 +35,8 @@ function DialogBox(props) {
   return (
     <div>
       <Dialog
-        open={props.open}
-        onClose={props.action}
+        open={props.secOpen}
+        onClose={() => {props.action("convo")}}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
         fullWidth
@@ -64,17 +61,20 @@ function DialogBox(props) {
             </DialogContentText>
           </DialogContent>
           <DialogActions>
+            <Button onClick={() => {props.action("convo")}} color="secondary">
+              Cancel
+            </Button>
             <Button value="Submit" type="submit" color="primary" autoFocus>
-              { status === "SUCCESS" ? <p>Thanks!</p> : "Send" }
-              { status === "ERROR" && <p>Ooops! There was an error.</p> }
+              { status === "SUCCESS" ? "Thanks!" : "Send" }
+              { status === "ERROR" && "Ooops! There was an error." }
             </Button>
             
           </DialogActions>
         </form>
       </Dialog>
       <Dialog
-        open={open}
-        onClose={handleClose}
+        open={props.open}
+        onClose={() => {props.action()}}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -92,15 +92,16 @@ function DialogBox(props) {
             where Tony was last seen.
             <br/><br/>
             When you finish with the story, press 
-            the <IoMdInformationCircleOutline /> button 
+            the <IoMdArrowRoundBack /> button 
             on the top right of the window to send me your conversation! 
             It will help me with further development.
             <br/><br/>
-            Thank you so much! Enjoy!
+            Press the <IoMdInformationCircleOutline /> at any point
+            to come back to these directions. Thanks! Enjoy!
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={() => {props.action()}} color="primary" autoFocus>
             Got It
           </Button>
         </DialogActions>
