@@ -6,11 +6,24 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from '@material-ui/core/styles';
 import { IoMdInformationCircleOutline, IoMdArrowRoundBack } from "react-icons/io";
+import { Slider } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    width: 250,
+  },
+  margin: {
+    height: theme.spacing(3),
+  },
+}));
 
 function DialogBox(props) {
   const [status, setStatus] = React.useState('');
   const textAreaRef = React.useRef(null);
+  const classes = useStyles();
 
   function handleSubmit (e) {
     console.log("submitting")
@@ -32,6 +45,10 @@ function DialogBox(props) {
     xhr.send(data);
   }
 
+  function valuetext(value) {
+    return `${value} stars`;
+  }
+
   return (
     <div>
       <Dialog
@@ -41,24 +58,61 @@ function DialogBox(props) {
         aria-describedby="alert-dialog-description"
         fullWidth
       >
-        <DialogTitle id="alert-dialog-title">{"Copy Conversation"}</DialogTitle>
+        <DialogTitle id="alert-dialog-title">{"Thanks so much!"}</DialogTitle>
         <form
           onSubmit={handleSubmit}
           action="https://formspree.io/xeqrprzy"
           method="POST"
         >
           <DialogContent>
+            <TextField
+              fullWidth
+              label="Name"
+              name="name"
+              variant="outlined"
+            />
+            <div className={classes.margin} />
+            <TextField
+              fullWidth
+              label="Email"
+              name="email"
+              variant="outlined"
+            />
+            <div className={classes.margin} />
+            <TextField
+              fullWidth
+              label="Any comments for me?"
+              name="comments"
+              variant="outlined"
+              rowsMax="3"
+            />
+            <div className={classes.margin} />
+            <Typography id="non-linear-slider" gutterBottom gutterTop>
+              Rate the Conversation
+            </Typography>
+            <Slider
+              fullWidth
+              label="Rating"
+              name="rating"
+              step={1}
+              min={1}
+              max={5}
+              defaultValue={3}
+              marks
+              getAriaValueText={valuetext}
+              valueLabelDisplay="auto"
+            />
+            <div className={classes.margin} />
             <TextField 
               inputProps={ { ref: textAreaRef } }
               value={props.textCopy}
-              rowsMax="5"
               multiline
               fullWidth
+              required
+              variant="outlined"
+              label="Full Conversation"
               name="conversation"
             />
-            <DialogContentText id="alert-dialog-description">
-              Press submit to send me your conversation!
-            </DialogContentText>
           </DialogContent>
           <DialogActions>
             <Button onClick={() => {props.action("convo")}} color="secondary">
