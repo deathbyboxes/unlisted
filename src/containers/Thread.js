@@ -54,7 +54,12 @@ const responses = [
     optional: true
   },
   {
-    possibleWords: ["thank", "later", "bye"],
+    possibleWords: ["when", "time"],
+    response: "What do i look like, an encyclopedia? That's all i know, ok? ",
+    optional: true
+  },
+  {
+    possibleWords: ["thank", "later", "bye", "ok"],
     response: "Yeah whatever, now let me watch my stories in peace!",
     optional: false
   }
