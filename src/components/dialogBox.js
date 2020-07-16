@@ -84,6 +84,7 @@ function DialogBox(props) {
               label="Any comments for me?"
               name="comments"
               variant="outlined"
+              multiline
               rowsMax="3"
             />
             <div className={classes.margin} />
@@ -106,7 +107,6 @@ function DialogBox(props) {
             <TextField 
               inputProps={ { ref: textAreaRef } }
               value={props.textCopy}
-              multiline
               fullWidth
               required
               variant="outlined"
