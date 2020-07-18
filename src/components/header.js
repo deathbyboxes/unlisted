@@ -22,10 +22,10 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-function Header({ contact, textCopy }) {
+function Header({ contact, textCopy, closeMsg }) {
   const classes = useStyles();
   const [secOpen, setSecOpen] = React.useState(false)
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
 
   function handleOpen(btn) {
     if(btn==="convo")
@@ -45,7 +45,7 @@ function Header({ contact, textCopy }) {
     <>
     <AppBar className={classes.root}>
       <Toolbar>
-        <IconButton onClick={() => {handleOpen("convo")}} edge="start" color="inherit">
+        <IconButton onClick={closeMsg} edge="start" color="inherit">
           <IoMdArrowRoundBack />
         </IconButton>
         <Divider orientation="vertical" flexItem light />

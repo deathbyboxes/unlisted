@@ -70,7 +70,7 @@ const person = {
   phone: "(907) 555-4323"
 };
 
-function Thread() {
+function Thread({closeMsg}) {
   const [messages, setMessages] = React.useState([]);
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
@@ -136,7 +136,7 @@ function Thread() {
 
   return (
     <div>
-      <Header contact={person.name || person.phone} textCopy={textCopy} />
+      <Header contact={person.name || person.phone} textCopy={textCopy} closeMsg={closeMsg} />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
       <div style={{ height: "75px" }}>&nbsp;</div>
