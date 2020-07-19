@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AllMessages() {
   const[msgOpen, setMsgOpen] = React.useState(false)
+  const [messages, setMessages] = React.useState([]);
   const classes = useStyles();
   function handleMsgOpen() {
     setMsgOpen(true)
@@ -58,7 +59,7 @@ function AllMessages() {
         ModalProps={{hideBackdrop:true}} 
         PaperProps={{className: classes.paper}}
       >
-        <Thread closeMsg={ handleMsgClose } />
+        <Thread closeMsg={ handleMsgClose } messages={messages} setMessages={setMessages} />
       </Drawer>
     </>
   )

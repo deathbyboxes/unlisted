@@ -70,8 +70,8 @@ const person = {
   phone: "(907) 555-4323"
 };
 
-function Thread({closeMsg}) {
-  const [messages, setMessages] = React.useState([]);
+function Thread({closeMsg, messages, setMessages}) {
+  //const [messages, setMessages] = React.useState([]);
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
   
