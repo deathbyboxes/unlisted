@@ -5,6 +5,9 @@ import "./index.css";
 import * as serviceWorker from './serviceWorker';
 import { CssBaseline } from "@material-ui/core";
 
+//TODO: get rid of this line
+localStorage.clear();
+
 ReactDOM.render(
   <>
     <CssBaseline />

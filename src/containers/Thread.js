@@ -67,14 +67,15 @@ const responses = [
 
 const person = {
   name: "",
-  phone: "(907) 555-4323"
+  phone: "9075554323"
 };
 
-function Thread({closeMsg, messages, setMessages}) {
-  //const [messages, setMessages] = React.useState([]);
+function Thread({closeMsg}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
-  
+  const [messages, setMessages] = React.useState(
+    JSON.parse(localStorage.getItem(`${person.phone}`)) || []
+  );
 
   React.useEffect(() => {
     window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
@@ -102,8 +103,11 @@ function Thread({closeMsg, messages, setMessages}) {
   }, [messages, messageQueue]);
 
   React.useEffect(() => {
-    if(messages.length)
-    setTextCopy(JSON.stringify(messages))
+    if(messages.length) {
+      let data = JSON.stringify(messages)
+      setTextCopy(data)
+      localStorage.setItem(`${person.phone}`, data)
+    }
   }, [messages])
 
   function checkResponse(msg) {
