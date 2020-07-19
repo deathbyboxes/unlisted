@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 function AllMessages() {
   const[msgOpen, setMsgOpen] = React.useState(false)
   const classes = useStyles();
+  const threadContainerRef = React.useRef(null)
   function handleMsgOpen() {
     setMsgOpen(true)
   }
@@ -57,9 +58,10 @@ function AllMessages() {
         elevation={3} 
         open={msgOpen} 
         ModalProps={{hideBackdrop:true}} 
-        PaperProps={{className: classes.paper}}
+        PaperProps={{className: classes.paper, ref: threadContainerRef}}
+        
       >
-        <Thread closeMsg={ handleMsgClose } />
+        <Thread closeMsg={ handleMsgClose } containerRef={threadContainerRef}/>
       </Drawer>
     </>
   )

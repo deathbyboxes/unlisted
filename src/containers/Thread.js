@@ -70,16 +70,15 @@ const person = {
   phone: "9075554323"
 };
 
-function Thread({closeMsg}) {
+function Thread({closeMsg, containerRef}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
+  const threadWindowRef = React.useRef(null);
   const [messages, setMessages] = React.useState(
     JSON.parse(localStorage.getItem(`${person.phone}`)) || []
   );
 
   React.useEffect(() => {
-    window.scrollTo({ top: document.body.scrollHeight, behavior: "smooth" });
-
     if (messages.length > 0)
       if (messages[messages.length - 1].from === "Me") {
         let res = checkResponse(messages[messages.length - 1].message);
@@ -103,6 +102,7 @@ function Thread({closeMsg}) {
   }, [messages, messageQueue]);
 
   React.useEffect(() => {
+    containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight, behavior: "smooth" });
     if(messages.length) {
       let data = JSON.stringify(messages)
       setTextCopy(data)
@@ -139,7 +139,7 @@ function Thread({closeMsg}) {
   ));
 
   return (
-    <div>
+    <div ref={threadWindowRef}>
       <Header contact={person.name || person.phone} textCopy={textCopy} closeMsg={closeMsg} />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
