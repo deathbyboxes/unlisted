@@ -77,9 +77,19 @@ function Thread({closeMsg, containerRef}) {
   const [messages, setMessages] = React.useState(
     JSON.parse(localStorage.getItem(`${person.phone}`)) || []
   );
+  
+  //effect once just to get to the bottom of the thread if messages exist
+  React.useEffect(() => {
+    containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight });
+  }, [])
 
   React.useEffect(() => {
-    if (messages.length > 0)
+    if (messages.length){
+      containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight, behavior: "smooth" });
+      let data = JSON.stringify(messages)
+      setTextCopy(data)
+      localStorage.setItem(`${person.phone}`, data)
+      
       if (messages[messages.length - 1].from === "Me") {
         let res = checkResponse(messages[messages.length - 1].message);
         if (res) {
@@ -99,16 +109,8 @@ function Thread({closeMsg, containerRef}) {
           messageQueue.push(q);
         }
       }
-  }, [messages, messageQueue]);
-
-  React.useEffect(() => {
-    containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight, behavior: "smooth" });
-    if(messages.length) {
-      let data = JSON.stringify(messages)
-      setTextCopy(data)
-      localStorage.setItem(`${person.phone}`, data)
     }
-  }, [messages])
+  }, [messages, messageQueue]);
 
   function checkResponse(msg) {
     let i, tmpI, res;

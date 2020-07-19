@@ -59,7 +59,6 @@ function AllMessages() {
         open={msgOpen} 
         ModalProps={{hideBackdrop:true}} 
         PaperProps={{className: classes.paper, ref: threadContainerRef}}
-        
       >
         <Thread closeMsg={ handleMsgClose } containerRef={threadContainerRef}/>
       </Drawer>
