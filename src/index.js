@@ -4,15 +4,31 @@ import AllMessages from "./containers/AllMessages";
 import "./index.css";
 import * as serviceWorker from './serviceWorker';
 import { CssBaseline } from "@material-ui/core";
+import { fetchMsgHistory } from "./utils/utils";
+import axios from 'axios';
 
 //TODO: get rid of this line
 localStorage.clear();
 
+function PhoneStorage () {
+  const [allMessages, setAllMessages] = React.useState([])
+  const [contacts, setContacts] = React.useState([])
+
+  React.useEffect(async () => {
+    const result = await axios('http://localhost:3000/unlisted/static/messageHistory.json',);
+    setAllMessages(result.data)
+  })
+
+  return (
+    <>
+      <CssBaseline />
+      <AllMessages allMessages={allMessages} />
+    </>
+  )
+}
+
 ReactDOM.render(
-  <>
-    <CssBaseline />
-    <AllMessages />
-  </>,
+  <PhoneStorage />,
   document.querySelector("#root")
 );
 

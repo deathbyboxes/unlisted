@@ -1,0 +1,32 @@
+[
+  {
+    "phone": "9075551211",
+    "name": "Marlene",
+    "messages": [
+      {
+        "from": "Marlene",
+        "date": -1,
+        "message": "Text 9075554323. They might know Tony. See if they know where he was last night.",
+        "state": 1
+      }
+    ]
+  },
+  {
+    "phone": "9075554323",
+    "name": "",
+    "messages": [
+    ]
+  },
+  {
+    "phone": "9075559978",
+    "name": "Eric",
+    "messages": [
+      {
+        "from": "Eric",
+        "date": -3,
+        "message": "Where have you been?",
+        "state": 1
+      }
+    ]
+  }
+]  
