@@ -5,7 +5,9 @@
     "messages": [
       {
         "from": "Marlene",
-        "date": -1,
+        "date": 1,
+        "hour": 4,
+        "minute": 23,
         "text": "Text 9075554323. They might know Tony. See if they know where he was last night.",
         "state": 1
       }
@@ -23,7 +25,9 @@
     "messages": [
       {
         "from": "Eric",
-        "date": -3,
+        "date": 3,
+        "hour": 2,
+        "minute": 16,
         "text": "Hey, where have you been?",
         "state": 1
       }

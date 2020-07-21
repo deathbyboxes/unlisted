@@ -5,24 +5,36 @@ import "./index.css";
 import * as serviceWorker from './serviceWorker';
 import { CssBaseline, ListItemAvatar } from "@material-ui/core";
 import axios from 'axios';
+import { createDate } from "./utils/utils";
 
 //TODO: get rid of this line
 localStorage.clear();
 
 function PhoneStorage () {
   const [allMessages, setAllMessages] = React.useState([])
+  // uncomment when you create contacts feature
   //const [contacts, setContacts] = React.useState([])
 
+  //creates backlog message history (and eventually contacts list)
   React.useEffect( () => {
     axios.get('http://localhost:3000/unlisted/static/messageHistory.json')
     .then(res => {
       if (!res.status === 200) {
         throw new Error("HTTP error", res.status);
       }
-      setAllMessages(res.data)
-      res.data.forEach(thread => {
+      // formats dates of messages 
+      res.data = res.data.map(thread => {
+        thread.messages = thread.messages.map(message => ({
+          from: message.from,
+          date: createDate(message.date, message.hour, message.minute),
+          text: message.text,
+          state: message.state
+        }))
+        console.log(thread.messages)
         localStorage.setItem(thread.phone, JSON.stringify(thread))
+        return thread
       })
+      setAllMessages(res.data)
     })
     .catch(err => { throw new Error(err) })
   }, [])

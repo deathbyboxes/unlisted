@@ -6,7 +6,7 @@ import Grid from "@material-ui/core/Grid";
 import IconButton from "@material-ui/core/IconButton";
 import { IoMdSend } from "react-icons/io";
 import { AppBar, Toolbar } from "@material-ui/core";
-import { RealTime } from "../utils/utils";
+import { createDate, formatDate } from "../utils/utils";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -42,8 +42,10 @@ function Input({action, phone}) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    let t = RealTime();
+    let t = formatDate(new Date());
     let m = message;
+
+    console.log(t)
 
     m.date = t;
     m.from = "Me";

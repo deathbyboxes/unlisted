@@ -2,9 +2,8 @@ import React from "react";
 import Message from "../components/message";
 import Header from "../components/header.js";
 import Input from "../components/input";
-import { RealTime, RandomNumber } from "../utils/utils";
+import { formatDate, createDate, formatNumber, RandomNumber } from "../utils/utils";
 import DialogBox from "../components/dialogBox";
-import useDeepCompareEffect from "use-deep-compare-effect"
 
 const responses = [
   {
@@ -66,50 +65,46 @@ const responses = [
   }
 ];
 
-const person = {
-  name: "",
-  phone: "9075554323"
-};
-
 function Thread({closeMsg, containerRef, thread, addMessage}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
   const threadWindowRef = React.useRef(null);
+
+  console.log(thread)
   
   //effect once just to get to the bottom of the thread if messages exist
   React.useEffect(() => {
     containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight });
   }, [])
 
-  useDeepCompareEffect(() => {
+  React.useEffect(() => {
     if (thread.messages.length){
       console.log("HIT!")
       containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight, behavior: "smooth" });
       let data = JSON.stringify(thread.messages)
       setTextCopy(data)
-      localStorage.setItem(`${person.phone}`, data)
       
       if (thread.messages[thread.messages.length - 1].from === "Me") {
         let res = checkResponse(thread.messages[thread.messages.length - 1].text);
         if (res) {
           let msg = {
-            from: person.name || person.phone,
+            from: thread.name || thread.phone,
             text: res.response,
-            date: RealTime()
+            date: formatDate(new Date())
           };
 
           let timer = setTimeout(() => {
             let m = messageQueue.shift();
             setMessageQueue(messageQueue);
             addMessage(thread.phone, m.msg);
-          }, RandomNumber(1, 2) * 1000);
+          }, RandomNumber(2, 6) * 1000);
 
           let q = { timer, msg };
           messageQueue.push(q);
         }
       }
     }
-  }, [thread]);
+  }, [JSON.stringify(thread)]);
 
   function checkResponse(msg) {
     let i, tmpI, res;
@@ -132,12 +127,12 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
   }
 
   const allMessages = thread.messages.map((msg, i) => (
-    <Message key={i} from={msg.from} date={msg.date} message={msg.text} />
+    <Message key={i} from={msg.from} date={formatDate(msg.date)} message={msg.text} />
   ));
 
   return (
     <div ref={threadWindowRef}>
-      <Header contact={person.name || person.phone} textCopy={textCopy} closeMsg={closeMsg} />
+      <Header contact={thread.name || formatNumber(thread.phone)} textCopy={textCopy} closeMsg={closeMsg} />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
       <div style={{ height: "75px" }}>&nbsp;</div>
