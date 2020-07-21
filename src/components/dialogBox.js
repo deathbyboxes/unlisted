@@ -26,7 +26,6 @@ function DialogBox(props) {
   const classes = useStyles();
 
   function handleSubmit (e) {
-    console.log("submitting")
     e.preventDefault();
     const form = e.target;
     const data = new FormData(form);

@@ -12,7 +12,7 @@ localStorage.clear();
 
 function PhoneStorage () {
   const [allMessages, setAllMessages] = React.useState([])
-  const colors = ["orange", "purple", "green", "blue", ""]
+  const colors = ["orange", "purple", "green", "blue", "cyan"]
   // uncomment when you create contacts feature
   //const [contacts, setContacts] = React.useState([])
 
@@ -31,8 +31,7 @@ function PhoneStorage () {
           text: message.text,
           state: message.state
         }))
-        thread.color = colors[RandomNumber(0,colors.length - 1, true)]
-        console.log(thread.messages)
+        thread.color = colors[ RandomNumber(1, colors.length - 1, true) - 1]
         localStorage.setItem(thread.phone, JSON.stringify(thread))
         return thread
       })

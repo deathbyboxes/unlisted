@@ -44,14 +44,9 @@ function Input({action, phone}) {
     event.preventDefault();
     let t = new Date();
     let m = message;
-
-    console.log(t)
-
     m.date = t;
     m.from = "Me";
-
     action(phone, m);
-
     setMessage(msg);
   }
 

@@ -1,5 +1,4 @@
 export function formatDate(d) {
-  console.log(d)
   let fmtDate = ""
   let month = d.getMonth();
   let date = d.getDate();

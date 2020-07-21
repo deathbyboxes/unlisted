@@ -2,7 +2,7 @@ import React from 'react'
 import { ListItem, ListItemIcon, ListItemText, Avatar, ListItemAvatar, makeStyles } from '@material-ui/core';
 import { IoMdContact } from 'react-icons/io';
 import { formatNumber, messageState } from '../utils/utils';
-import {deepPurple, green, deepOrange, blueGrey} from '@material-ui/core/colors';
+import {deepPurple, green, deepOrange, blueGrey, cyan} from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   orange: {
@@ -20,7 +20,11 @@ const useStyles = makeStyles((theme) => ({
   blue: {
     color: theme.palette.getContrastText(deepPurple[500]),
     backgroundColor: blueGrey[500],
-  }
+  },
+  cyan: {
+    color: theme.palette.getContrastText(cyan[700]),
+    backgroundColor: cyan[700],
+  },
 }))
 
 function formatText(message) {

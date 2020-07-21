@@ -66,32 +66,10 @@ const responses = [
   }
 ];
 
-const useStyles = makeStyles((theme) => ({
-  orange: {
-    color: theme.palette.getContrastText(deepOrange[500]),
-    backgroundColor: deepOrange[500],
-  },
-  purple: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: deepPurple[500],
-  },
-  green: {
-    color: theme.palette.getContrastText(green[800]),
-    backgroundColor: green[800],
-  },
-  blue: {
-    color: theme.palette.getContrastText(deepPurple[500]),
-    backgroundColor: blueGrey[500],
-  }
-}))
-
 function Thread({closeMsg, containerRef, thread, addMessage}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
   const threadWindowRef = React.useRef(null);
-  const classes = useStyles();
-
-  console.log(thread)
   
   //effect once just to get to the bottom of the thread if messages exist
   React.useEffect(() => {
@@ -100,7 +78,6 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
 
   React.useEffect(() => {
     if (thread.messages.length){
-      console.log("HIT!")
       containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight, behavior: "smooth" });
       let data = JSON.stringify(thread.messages)
       setTextCopy(data)
