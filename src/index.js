@@ -5,13 +5,14 @@ import "./index.css";
 import * as serviceWorker from './serviceWorker';
 import { CssBaseline, ListItemAvatar } from "@material-ui/core";
 import axios from 'axios';
-import { createDate } from "./utils/utils";
+import { createDate, RandomNumber } from "./utils/utils";
 
 //TODO: get rid of this line
 localStorage.clear();
 
 function PhoneStorage () {
   const [allMessages, setAllMessages] = React.useState([])
+  const colors = ["orange", "purple", "green", "blue", ""]
   // uncomment when you create contacts feature
   //const [contacts, setContacts] = React.useState([])
 
@@ -30,6 +31,7 @@ function PhoneStorage () {
           text: message.text,
           state: message.state
         }))
+        thread.color = colors[RandomNumber(0,colors.length - 1, true)]
         console.log(thread.messages)
         localStorage.setItem(thread.phone, JSON.stringify(thread))
         return thread

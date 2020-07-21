@@ -42,7 +42,7 @@ function Input({action, phone}) {
 
   function handleSubmit(event) {
     event.preventDefault();
-    let t = formatDate(new Date());
+    let t = new Date();
     let m = message;
 
     console.log(t)

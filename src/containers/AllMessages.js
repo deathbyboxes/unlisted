@@ -8,12 +8,7 @@ import Box from '@material-ui/core/Box';
 import { sizing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles'
 import Highlight from '../components/highlight';
-
-const msgState = {
-  UNREAD: 0,
-  READ: 1,
-  DRAFT: 2
-}
+import { RandomNumber } from '../utils/utils';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     width: '100%'
+  },
+  unread: {
+
+  },
+  read: {
+
   }
 }));
 
@@ -50,7 +51,7 @@ function AllMessages({allMessages, addMessage}) {
     }
     return (
       <>
-      <Highlight handleClick={handleThreadClick} info={info} />
+      <Highlight handleClick={handleThreadClick} info={info} color={thread.color} />
       { !(i === allMessages.length - 1) && <Divider key={info.phone + "-divider"} /> }
       </>
     )

@@ -2,8 +2,9 @@ import React from "react";
 import Message from "../components/message";
 import Header from "../components/header.js";
 import Input from "../components/input";
-import { formatDate, createDate, formatNumber, RandomNumber } from "../utils/utils";
-import DialogBox from "../components/dialogBox";
+import { formatDate, formatNumber, RandomNumber } from "../utils/utils";
+import { makeStyles } from "@material-ui/core";
+import {deepPurple, green, deepOrange, blueGrey} from '@material-ui/core/colors';
 
 const responses = [
   {
@@ -65,10 +66,30 @@ const responses = [
   }
 ];
 
+const useStyles = makeStyles((theme) => ({
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  purple: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
+  },
+  green: {
+    color: theme.palette.getContrastText(green[800]),
+    backgroundColor: green[800],
+  },
+  blue: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: blueGrey[500],
+  }
+}))
+
 function Thread({closeMsg, containerRef, thread, addMessage}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
   const threadWindowRef = React.useRef(null);
+  const classes = useStyles();
 
   console.log(thread)
   
@@ -90,7 +111,7 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
           let msg = {
             from: thread.name || thread.phone,
             text: res.response,
-            date: formatDate(new Date())
+            date: new Date()
           };
 
           let timer = setTimeout(() => {
@@ -132,7 +153,7 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
 
   return (
     <div ref={threadWindowRef}>
-      <Header contact={thread.name || formatNumber(thread.phone)} textCopy={textCopy} closeMsg={closeMsg} />
+      <Header contact={thread.name || formatNumber(thread.phone)} textCopy={textCopy} closeMsg={closeMsg} color={thread.color} />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
       <div style={{ height: "75px" }}>&nbsp;</div>

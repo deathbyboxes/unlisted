@@ -1,7 +1,27 @@
 import React from 'react'
-import { ListItem, ListItemIcon, ListItemText, Avatar, ListItemAvatar } from '@material-ui/core';
+import { ListItem, ListItemIcon, ListItemText, Avatar, ListItemAvatar, makeStyles } from '@material-ui/core';
 import { IoMdContact } from 'react-icons/io';
 import { formatNumber, messageState } from '../utils/utils';
+import {deepPurple, green, deepOrange, blueGrey} from '@material-ui/core/colors';
+
+const useStyles = makeStyles((theme) => ({
+  orange: {
+    color: theme.palette.getContrastText(deepOrange[500]),
+    backgroundColor: deepOrange[500],
+  },
+  purple: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: deepPurple[500],
+  },
+  green: {
+    color: theme.palette.getContrastText(green[800]),
+    backgroundColor: green[800],
+  },
+  blue: {
+    color: theme.palette.getContrastText(deepPurple[500]),
+    backgroundColor: blueGrey[500],
+  }
+}))
 
 function formatText(message) {
   let fmtText = ""
@@ -18,15 +38,15 @@ function formatText(message) {
   } else {
     fmtText += "Draft: "
   }
-
   return fmtText
 }
 
-function Highlight({info, handleClick}) {
+function Highlight({info, handleClick, color}) {
+  const classes = useStyles();
   return (
     <ListItem button onClick={() => { handleClick(info.phone) }} key={info.phone}>
       <ListItemAvatar>
-        <Avatar>
+        <Avatar className={ color !== "" ? classes[color] : false }>
           { info.name ? info.name.substring(0,1).toUpperCase() : <IoMdContact fontSize="30px"/> }
         </Avatar>
       </ListItemAvatar>

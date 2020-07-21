@@ -8,7 +8,8 @@ export function formatDate(d) {
   let today = new Date();
 
   let daysAgo =  Math.abs(date - today.getDate());
-  if (daysAgo === 1) fmtDate += `yesterday, `
+  if (daysAgo === 0) fmtDate += `Today, `
+  else if (daysAgo === 1) fmtDate += `Yesterday, `
   else fmtDate += `${month + 1}/${date}, `
   fmtDate += `${hours % 12 || 12}:${mins} ${hours > 11 ? "PM" : "AM"}`
 
