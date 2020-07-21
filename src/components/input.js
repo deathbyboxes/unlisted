@@ -33,10 +33,10 @@ const useStyles = makeStyles(theme => ({
 const msg = {
   from: "",
   date: "",
-  message: ""
+  text: ""
 };
 
-function Input(props) {
+function Input({action, phone}) {
   const classes = useStyles();
   const [message, setMessage] = React.useState(msg);
 
@@ -48,7 +48,7 @@ function Input(props) {
     m.date = t;
     m.from = "Me";
 
-    props.action(m);
+    action(phone, m);
 
     setMessage(msg);
   }
@@ -56,7 +56,7 @@ function Input(props) {
   function handleChange(event) {
     const val = event.target.value;
     setMessage(prevState => {
-      return { ...prevState, message: val };
+      return { ...prevState, text: val };
     });
   }
 
@@ -77,7 +77,7 @@ function Input(props) {
                   placeholder="Your message..."
                   inputProps={{ className: classes.input }}
                   onChange={handleChange}
-                  value={message.message}
+                  value={message.text}
                   className={classes.border}
                 />
               </FormControl>

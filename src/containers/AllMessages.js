@@ -26,33 +26,40 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function AllMessages({allMessages}) {
-  console.log(allMessages)
+function AllMessages({allMessages, addMessage}) {
   const[msgOpen, setMsgOpen] = React.useState(false)
+  const[curThread, setCurThread] = React.useState("")
   const classes = useStyles();
   const threadContainerRef = React.useRef(null)
-  function handleMsgOpen() {
-    setMsgOpen(true)
-  }
+
 
   function handleMsgClose() {
     setMsgOpen(false)
   }
 
-  const threadHLs = allMessages.map((thread) => {
-    console.log(thread.messages[thread.messages.length - 1])
+  function handleThreadClick(phone) {
+    setMsgOpen(true)
+    setCurThread(allMessages.filter(thread => thread.phone === phone)[0])
+  }
+
+  const threadHLs = allMessages.map((thread, i) => {
     const info = {
       name: thread.name,
       phone: thread.phone,
-      message: thread.messages[thread.messages.length - 1].message.substring(0,10)
+      message: thread.messages[thread.messages.length - 1],
     }
-    return <Highlight info={info} />
+    return (
+      <>
+      <Highlight handleClick={handleThreadClick} info={info} />
+      { !(i === allMessages.length - 1) && <Divider key={info.phone + "-divider"} /> }
+      </>
+    )
   });
 
   return(
     <>
       <List>
-        {threadHLs || null}
+        {threadHLs}
       </List>
       
       <Drawer 
@@ -63,7 +70,7 @@ function AllMessages({allMessages}) {
         ModalProps={{hideBackdrop:true}} 
         PaperProps={{className: classes.paper, ref: threadContainerRef}}
       >
-        <Thread closeMsg={ handleMsgClose } containerRef={threadContainerRef}/>
+        <Thread addMessage={addMessage} closeMsg={ handleMsgClose } thread={curThread} containerRef={threadContainerRef}/>
       </Drawer>
     </>
   )

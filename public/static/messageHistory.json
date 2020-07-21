@@ -6,7 +6,7 @@
       {
         "from": "Marlene",
         "date": -1,
-        "message": "Text 9075554323. They might know Tony. See if they know where he was last night.",
+        "text": "Text 9075554323. They might know Tony. See if they know where he was last night.",
         "state": 1
       }
     ]
@@ -24,7 +24,7 @@
       {
         "from": "Eric",
         "date": -3,
-        "message": "Where have you been?",
+        "text": "Hey, where have you been?",
         "state": 1
       }
     ]

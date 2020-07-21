@@ -3,8 +3,7 @@ import ReactDOM from "react-dom";
 import AllMessages from "./containers/AllMessages";
 import "./index.css";
 import * as serviceWorker from './serviceWorker';
-import { CssBaseline } from "@material-ui/core";
-import { fetchMsgHistory } from "./utils/utils";
+import { CssBaseline, ListItemAvatar } from "@material-ui/core";
 import axios from 'axios';
 
 //TODO: get rid of this line
@@ -12,17 +11,39 @@ localStorage.clear();
 
 function PhoneStorage () {
   const [allMessages, setAllMessages] = React.useState([])
-  const [contacts, setContacts] = React.useState([])
+  //const [contacts, setContacts] = React.useState([])
 
-  React.useEffect(async () => {
-    const result = await axios('http://localhost:3000/unlisted/static/messageHistory.json',);
-    setAllMessages(result.data)
-  })
+  React.useEffect( () => {
+    axios.get('http://localhost:3000/unlisted/static/messageHistory.json')
+    .then(res => {
+      if (!res.status === 200) {
+        throw new Error("HTTP error", res.status);
+      }
+      setAllMessages(res.data)
+      res.data.forEach(thread => {
+        localStorage.setItem(thread.phone, JSON.stringify(thread))
+      })
+    })
+    .catch(err => { throw new Error(err) })
+  }, [])
+
+  function addMessage (phone, msg) {
+    let thread = allMessages.filter(thread => thread.phone === phone)[0]
+    thread.messages.push(msg)
+    localStorage.setItem(`${phone}`, thread)
+    setAllMessages(threads => 
+      threads.map(t => 
+        t.phone === phone
+        ? { ...t, messages: thread.messages }
+        : t
+      )  
+    )
+  }
 
   return (
     <>
       <CssBaseline />
-      <AllMessages allMessages={allMessages} />
+      <AllMessages addMessage={addMessage} allMessages={allMessages} />
     </>
   )
 }
