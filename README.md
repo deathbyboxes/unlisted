@@ -1,5 +1,4 @@
-# Unlisted
-## A Text Messaging Puzzle Game
+# Unlisted - A Text Messaging Puzzle Game
 
 Live Site can be [found here](https://deathbyboxes.github.io). Currently the live version is not up to date with the current master branch of this repo. 
 
@@ -23,8 +22,6 @@ Here you can view everyone already on your contacts list. From here you can star
 Here You can view the full message conversation with a single NPC. This is where you'll be able to text an NPC and read messages sent from that NPC. You will also be able to edit this particular NPCs contact information from here.
 
 # Running the Project Locally
-
-## Available Scripts
 
 In the project directory, you can run:
 
