@@ -4,7 +4,6 @@ import Header from "../components/header.js";
 import Input from "../components/input";
 import { formatDate, formatNumber, RandomNumber } from "../utils/utils";
 import { makeStyles } from "@material-ui/core";
-import {deepPurple, green, deepOrange, blueGrey} from '@material-ui/core/colors';
 
 const responses = [
   {
@@ -66,10 +65,21 @@ const responses = [
   }
 ];
 
+const useStyles = makeStyles(() => ({
+  root: {
+
+  },
+  paper: {
+    backgroundColor: 'rgba(0,0,0,.05)',
+    height: '100%'
+  }
+}))
+
 function Thread({closeMsg, containerRef, thread, addMessage}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
   const threadWindowRef = React.useRef(null);
+  const classes = useStyles();
   
   //effect once just to get to the bottom of the thread if messages exist
   React.useEffect(() => {
@@ -129,7 +139,7 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
   ));
 
   return (
-    <div ref={threadWindowRef}>
+    <div ref={threadWindowRef} class={classes.paper}>
       <Header contact={thread.name || formatNumber(thread.phone)} textCopy={textCopy} closeMsg={closeMsg} color={thread.color} />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
