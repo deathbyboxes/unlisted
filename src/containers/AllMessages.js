@@ -2,7 +2,7 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import { List, Divider, Button, Grid, Drawer, Modal, Typography} from '@material-ui/core';
+import { List, Divider, Button, Grid, Drawer, Modal, Typography, Fab} from '@material-ui/core';
 import Thread from './Thread';
 import Header from '../components/header';
 import Box from '@material-ui/core/Box';
@@ -10,6 +10,7 @@ import { sizing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles'
 import Highlight from '../components/highlight';
 import { RandomNumber } from '../utils/utils';
+import { IoMdChatbubbles } from 'react-icons/io';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -29,6 +30,11 @@ const useStyles = makeStyles((theme) => ({
   title: {
     flexGrow: 1,
     textAlign: 'center'
+  },
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
   },
 }));
 
@@ -84,6 +90,10 @@ function AllMessages({allMessages, addMessage}) {
       <List>
         {threadHLs}
       </List>
+
+      <Fab color="primary" aria-label="new" className={classes.fab}>
+        <IoMdChatbubbles fontSize="24px" />
+      </Fab>
       
       <Drawer 
         className={classes.root} 
