@@ -189,7 +189,7 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
       <div style={{ height: "75px" }}>&nbsp;</div>
-      <Input phone={thread.phone} action={addMessage} />
+      <Input color={thread.color} phone={thread.phone} action={addMessage} />
     </div>
   );
 }

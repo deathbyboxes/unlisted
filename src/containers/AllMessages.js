@@ -11,6 +11,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import Highlight from '../components/highlight';
 import { RandomNumber } from '../utils/utils';
 import { IoMdChatbubbles } from 'react-icons/io';
+import { teal, purple, pink } from '@material-ui/core/colors';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,7 +36,12 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: theme.spacing(2),
     right: theme.spacing(2),
-  },
+    color: theme.palette.common.white,
+    backgroundColor: pink['A400'],
+    '&:hover': {
+      backgroundColor: pink['A700'],
+    },
+  }
 }));
 
 function AllMessages({allMessages, addMessage}) {
@@ -59,7 +65,7 @@ function AllMessages({allMessages, addMessage}) {
       {props.title}
     </Typography>
   )
-
+  
   const threadHLs = allMessages.map((thread, i) => {
     const info = {
       name: thread.name,
@@ -82,7 +88,7 @@ function AllMessages({allMessages, addMessage}) {
             title={"Messages"} 
           />
         } 
-        color={"default"}
+        color={"cyan"}
       />
 
       <div style={{ height: "55px" }}>&nbsp;</div>
@@ -91,7 +97,7 @@ function AllMessages({allMessages, addMessage}) {
         {threadHLs}
       </List>
 
-      <Fab color="primary" aria-label="new" className={classes.fab}>
+      <Fab aria-label="new" className={classes.fab}>
         <IoMdChatbubbles fontSize="24px" />
       </Fab>
       
