@@ -1,24 +1,29 @@
 # Unlisted - A Text Messaging Puzzle Game
 
-Live Site can be [found here](https://deathbyboxes.github.io). Currently the live version is not up to date with the current master branch of this repo. 
+Live Site can be [found here](https://deathbyboxes.github.io). Currently the live version is not up to date with the current master branch of this repo.
 
 ## Purpose
+
 This app is a puzzle style messaging game built with React, Material UI, Firebase, and Google Cloud's Dialogflow Natural Language Processor. You start with one unread text message from an FBI agent, asking you to find out more information about a suspect who recently moved into your small marine town of Seward, AK.
 
 ## How to play
-**Unlisted** will have you read and send messages to and from various Non-Player-Characters (NPCs), uncovering information on each of them as you play. Some NPCs will be willing to answer your questions from the start, others will need something from you before they are comfortable letting you in on some secrets. 
+
+**Unlisted** will have you read and send messages to and from various Non-Player-Characters (NPCs), uncovering information on each of them as you play. Some NPCs will be willing to answer your questions from the start, others will need something from you before they are comfortable letting you in on some secrets.
 
 Find out what motivates people in order to gain their trust. You will regularly be relaying information to the FBI agent who will vet your answers and confirm they are correct. Once you've obtained the amount of information needed for the FBI agent to make a case on this stranger in your town, you win.
 
 ## Controls
 
 ### Message History
+
 When you start the app, you will be presented with the Message History page. Here you can see all your read and unread messages at a high level. You can open conversations, start new conversations, and view your contacts page from here.
 
 ### Contacts Page
+
 Here you can view everyone already on your contacts list. From here you can start a new conversation with an existing contact, create a new contact, or edit current contacts.
 
 ### Conversation
+
 Here You can view the full message conversation with a single NPC. This is where you'll be able to text an NPC and read messages sent from that NPC. You will also be able to edit this particular NPCs contact information from here.
 
 # Running the Project Locally

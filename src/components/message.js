@@ -5,45 +5,42 @@ import lblue from "@material-ui/core/colors/lightBlue";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Grow from "@material-ui/core/Grow";
-import { RandomNumber } from "../utils/utils";
-import classNames from 'classnames'
+import classNames from "classnames";
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
-    transformOrigin: "right bottom"
+    transformOrigin: "right bottom",
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "left",
     color: theme.palette.text.secondary,
-    borderRadius: "10px"
+    borderRadius: "10px",
   },
   me: {
     backgroundColor: lblue[600],
-    color: "rgba(255,255,255,0.9)"
+    color: "rgba(255,255,255,0.9)",
   },
   date: {
-    marginBottom: ".5em"
+    marginBottom: ".5em",
   },
   messageBox: {
     [theme.breakpoints.down("sm")]: {
-      maxWidth: "90%"
+      maxWidth: "90%",
     },
     [theme.breakpoints.up("md")]: {
-      maxWidth: "70%"
-    }
-  }
+      maxWidth: "70%",
+    },
+  },
 }));
 
 function Message(props) {
   const classes = useStyles();
   const from = props.from;
-  let time = RandomNumber(3, 4) * 1000;
-
   const paperClases = classNames({
     [classes.paper]: true,
-    [classes.me]: from === "Me"
+    [classes.me]: from === "Me",
   });
 
   return (

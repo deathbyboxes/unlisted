@@ -7,110 +7,113 @@ import { makeStyles } from "@material-ui/core";
 import Typography from "@material-ui/core/Typography";
 import {
   IoMdArrowRoundBack,
-  IoMdInformationCircleOutline
+  IoMdInformationCircleOutline,
 } from "react-icons/io";
 import IconButton from "@material-ui/core/IconButton";
-import Divider from "@material-ui/core/Divider";
 
-const useStyles = makeStyles(theme => ({
-  root: {
-
-  },
+const useStyles = makeStyles((theme) => ({
+  root: {},
   paper: {
-    backgroundColor: 'rgba(0,0,0,.05)',
-    height: '100%'
+    backgroundColor: "rgba(0,0,0,.05)",
+    height: "100%",
   },
   title: {
     flexGrow: 1,
-    textAlign: 'center'
-  }
+    textAlign: "center",
+  },
 }));
-
 
 const responses = [
   {
     possibleWords: ["hey", "yo", "sup", "hello"],
     response: "Whatya want!? I'm busy watchin my General Hospitals!",
-    optional: true
+    optional: true,
   },
   {
     possibleWords: ["sorry", "apolog", "bad"],
     response: "Oh boo hoo, get to the point!",
-    optional: true
+    optional: true,
   },
   {
     possibleWords: ["where", "someone", "looking", "info"],
     response: "Can yous be more specific? As I said, I'm very busy right nows!",
-    optional: true
+    optional: true,
   },
   {
     possibleWords: ["tony"],
     response:
       "I don't know no one by dat name! And even if I did, i ain't no RAT.",
-    optional: false
+    optional: false,
   },
   {
     possibleWords: [""],
     response:
       "I'm just messin, I hate Tony, so I'll tell ya's. but first you gotta answer a question for me...",
-    optional: false
+    optional: false,
   },
   {
     possibleWords: [""],
-    response: "Now listen up... who would win in a fight, a taco or a grilled cheese sandwich?",
-    optional: false
+    response:
+      "Now listen up... who would win in a fight, a taco or a grilled cheese sandwich?",
+    optional: false,
   },
   {
     possibleWords: [""],
     response: "Well, when you have an actual answer, I'll be here.",
-    optional: true
+    optional: true,
   },
   {
     possibleWords: ["taco", "grilled cheese"],
-    response: "Ayyy, good answer! Tony was hangin out at that Frolics joint last I saws",
-    optional: false
+    response:
+      "Ayyy, good answer! Tony was hangin out at that Frolics joint last I saws",
+    optional: false,
   },
   {
     possibleWords: ["where", "location"],
     response: "On the corner of 10th and Sawyer",
-    optional: true
+    optional: true,
   },
   {
     possibleWords: ["when", "time"],
     response: "What do i look like, an encyclopedia? That's all i know, ok? ",
-    optional: true
+    optional: true,
   },
   {
     possibleWords: ["thank", "later", "bye", "ok"],
     response: "Yeah whatever, now let me watch my stories in peace!",
-    optional: false
-  }
+    optional: false,
+  },
 ];
 
-function Thread({closeMsg, containerRef, thread, addMessage}) {
+function Thread({ closeMsg, containerRef, thread, addMessage }) {
   const [messageQueue, setMessageQueue] = React.useState([]);
-  const [textCopy, setTextCopy] = React.useState("")
   const threadWindowRef = React.useRef(null);
   const classes = useStyles();
-  
+
   //effect once just to get to the bottom of the thread if messages exist
   React.useEffect(() => {
-    containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight });
-  }, [])
+    containerRef.current.scrollTo({
+      top: threadWindowRef.current.scrollHeight,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   React.useEffect(() => {
-    if (thread.messages.length){
-      containerRef.current.scrollTo({ top: threadWindowRef.current.scrollHeight, behavior: "smooth" });
-      let data = JSON.stringify(thread.messages)
-      setTextCopy(data)
-      
+    if (thread.messages.length) {
+      containerRef.current.scrollTo({
+        top: threadWindowRef.current.scrollHeight,
+        behavior: "smooth",
+      });
+
       if (thread.messages[thread.messages.length - 1].from === "Me") {
-        let res = checkResponse(thread.messages[thread.messages.length - 1].text);
+        let res = checkResponse(
+          thread.messages[thread.messages.length - 1].text
+        );
         if (res) {
           let msg = {
             from: thread.name || thread.phone,
             text: res.response,
-            date: new Date()
+            date: new Date(),
           };
 
           let timer = setTimeout(() => {
@@ -124,6 +127,7 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
         }
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.stringify(thread)]);
 
   function checkResponse(msg) {
@@ -132,7 +136,7 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
     while (!res) {
       if (
         responses[iter]?.possibleWords.filter(
-          w => msg.toLowerCase().indexOf(w) > -1
+          (w) => msg.toLowerCase().indexOf(w) > -1
         ).length > 0
       )
         tmpI = iter;
@@ -146,44 +150,41 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
     return res;
   }
 
-  const ToolbarTools = props => (
+  const ToolbarTools = (props) => (
     <>
-      <IconButton 
-        onClick={props.handleArrowBack} 
-        edge="start" 
-        color="inherit"
-      >
+      <IconButton onClick={props.handleArrowBack} edge="start" color="inherit">
         <IoMdArrowRoundBack />
       </IconButton>
-            
+
       <Typography variant="h6" className={classes.title}>
         {props.title}
       </Typography>
-      
-      <IconButton 
-        onClick={props.handleInfo} 
-        edge="end" 
-        color="inherit"
-      >
+
+      <IconButton onClick={props.handleInfo} edge="end" color="inherit">
         <IoMdInformationCircleOutline />
       </IconButton>
     </>
-  ) 
+  );
 
   const allMessages = thread.messages.map((msg, i) => (
-    <Message key={i} from={msg.from} date={formatDate(msg.date)} message={msg.text} />
+    <Message
+      key={i}
+      from={msg.from}
+      date={formatDate(msg.date)}
+      message={msg.text}
+    />
   ));
 
   return (
     <div ref={threadWindowRef} className={classes.paper}>
-      <Header 
-        tools={ 
-          <ToolbarTools 
-            handleArrowBack={closeMsg} 
-            title={thread.name || formatNumber(thread.phone)} 
-            handleInfo={null} 
+      <Header
+        tools={
+          <ToolbarTools
+            handleArrowBack={closeMsg}
+            title={thread.name || formatNumber(thread.phone)}
+            handleInfo={null}
           />
-        } 
+        }
         color={thread.color}
       />
       <div style={{ height: "75px" }}>&nbsp;</div>
