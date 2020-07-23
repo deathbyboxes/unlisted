@@ -68,7 +68,7 @@ function Input({action, phone}) {
         >
           <Grid container alignItems="center" spacing={3}>
             <Grid item xs>
-              <FormControl fullWidth variant="outlined">
+              <FormControl fullWidth variant="outlined" size="small">
                 <OutlinedInput
                   id="component-outlined"
                   placeholder="Your message..."
@@ -76,6 +76,7 @@ function Input({action, phone}) {
                   onChange={handleChange}
                   value={message.text}
                   className={classes.border}
+                  margin="dense"
                 />
               </FormControl>
             </Grid>

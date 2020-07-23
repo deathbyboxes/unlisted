@@ -4,6 +4,28 @@ import Header from "../components/header.js";
 import Input from "../components/input";
 import { formatDate, formatNumber, RandomNumber } from "../utils/utils";
 import { makeStyles } from "@material-ui/core";
+import Typography from "@material-ui/core/Typography";
+import {
+  IoMdArrowRoundBack,
+  IoMdInformationCircleOutline
+} from "react-icons/io";
+import IconButton from "@material-ui/core/IconButton";
+import Divider from "@material-ui/core/Divider";
+
+const useStyles = makeStyles(theme => ({
+  root: {
+
+  },
+  paper: {
+    backgroundColor: 'rgba(0,0,0,.05)',
+    height: '100%'
+  },
+  title: {
+    flexGrow: 1,
+    textAlign: 'center'
+  }
+}));
+
 
 const responses = [
   {
@@ -65,16 +87,6 @@ const responses = [
   }
 ];
 
-const useStyles = makeStyles(() => ({
-  root: {
-
-  },
-  paper: {
-    backgroundColor: 'rgba(0,0,0,.05)',
-    height: '100%'
-  }
-}))
-
 function Thread({closeMsg, containerRef, thread, addMessage}) {
   const [messageQueue, setMessageQueue] = React.useState([]);
   const [textCopy, setTextCopy] = React.useState("")
@@ -134,13 +146,46 @@ function Thread({closeMsg, containerRef, thread, addMessage}) {
     return res;
   }
 
+  const ToolbarTools = props => (
+    <>
+      <IconButton 
+        onClick={props.handleArrowBack} 
+        edge="start" 
+        color="inherit"
+      >
+        <IoMdArrowRoundBack />
+      </IconButton>
+            
+      <Typography variant="h6" className={classes.title}>
+        {props.title}
+      </Typography>
+      
+      <IconButton 
+        onClick={props.handleInfo} 
+        edge="end" 
+        color="inherit"
+      >
+        <IoMdInformationCircleOutline />
+      </IconButton>
+    </>
+  ) 
+
   const allMessages = thread.messages.map((msg, i) => (
     <Message key={i} from={msg.from} date={formatDate(msg.date)} message={msg.text} />
   ));
 
   return (
-    <div ref={threadWindowRef} class={classes.paper}>
-      <Header contact={thread.name || formatNumber(thread.phone)} textCopy={textCopy} closeMsg={closeMsg} color={thread.color} />
+    <div ref={threadWindowRef} className={classes.paper}>
+      <Header 
+        tools={ 
+          <ToolbarTools 
+            handleArrowBack={closeMsg} 
+            title={thread.name || formatNumber(thread.phone)} 
+            handleInfo={null} 
+          />
+        } 
+        color={thread.color}
+      />
       <div style={{ height: "75px" }}>&nbsp;</div>
       {allMessages}
       <div style={{ height: "75px" }}>&nbsp;</div>

@@ -2,8 +2,9 @@ import React from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
-import { List, Divider, Button, Grid, Drawer, Modal} from '@material-ui/core';
+import { List, Divider, Button, Grid, Drawer, Modal, Typography} from '@material-ui/core';
 import Thread from './Thread';
+import Header from '../components/header';
 import Box from '@material-ui/core/Box';
 import { sizing } from '@material-ui/system';
 import { makeStyles } from '@material-ui/core/styles'
@@ -24,7 +25,11 @@ const useStyles = makeStyles((theme) => ({
   },
   read: {
 
-  }
+  },
+  title: {
+    flexGrow: 1,
+    textAlign: 'center'
+  },
 }));
 
 function AllMessages({allMessages, addMessage}) {
@@ -42,6 +47,12 @@ function AllMessages({allMessages, addMessage}) {
     setMsgOpen(true)
     setCurThread(allMessages.filter(thread => thread.phone === phone)[0])
   }
+  
+  const ToolbarTools = props => (
+    <Typography variant="h6" className={classes.title}>
+      {props.title}
+    </Typography>
+  )
 
   const threadHLs = allMessages.map((thread, i) => {
     const info = {
@@ -50,15 +61,26 @@ function AllMessages({allMessages, addMessage}) {
       message: thread.messages[thread.messages.length - 1],
     }
     return (
-      <>
+      <div key={info.phone}>
       <Highlight handleClick={handleThreadClick} info={info} color={thread.color} />
-      { !(i === allMessages.length - 1) && <Divider key={info.phone + "-divider"} /> }
-      </>
+      { !(i === allMessages.length - 1) && <Divider /> }
+      </div>
     )
   });
 
   return(
     <>
+      <Header 
+        tools={ 
+          <ToolbarTools 
+            title={"Messages"} 
+          />
+        } 
+        color={"default"}
+      />
+
+      <div style={{ height: "55px" }}>&nbsp;</div>
+
       <List>
         {threadHLs}
       </List>
